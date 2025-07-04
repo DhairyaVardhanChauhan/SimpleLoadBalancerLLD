@@ -20,13 +20,16 @@ public class Main {
         Server s1  = LoadBalancer.getInstance().getServer(request1,new RoundRobin());
         Server s2  =LoadBalancer.getInstance().getServer(request2,new RoundRobin());
         Server s3 = LoadBalancer.getInstance().getServer(request3,new RoundRobin());
-        Server s4 = LoadBalancer.getInstance().getServer(request4,new IpHashing());
-        Server s5 = LoadBalancer.getInstance().getServer(request5,new RoundRobin());
         System.out.println(s1.getServerId());
         System.out.println(s2.getServerId());
         System.out.println(s3.getServerId());
+        System.out.println("Making the server2 up!");
+        server2.setServerUp();
+        Server s4 = LoadBalancer.getInstance().getServer(request4,new RoundRobin());
+        Server s5 = LoadBalancer.getInstance().getServer(request5,new RoundRobin());
         System.out.println(s4.getServerId());
         System.out.println(s5.getServerId());
+
 
         // health check
 
