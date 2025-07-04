@@ -15,7 +15,7 @@ public class Main {
         int request4 = 4;
         int request5 = 5;
         Server server1 = new Server(1L,true,new ArrayList<>());
-        Server server2 = new Server(2L,true,new ArrayList<>());
+        Server server2 = new Server(2L,false,new ArrayList<>());
         LoadBalancer.initialize(List.of(server1,server2), new RoundRobin());
         Server s1  = LoadBalancer.getInstance().getServer(request1,new RoundRobin());
         Server s2  =LoadBalancer.getInstance().getServer(request2,new RoundRobin());

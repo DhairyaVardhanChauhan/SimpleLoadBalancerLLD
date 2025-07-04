@@ -12,12 +12,18 @@ public class IpHashing implements LoadBalancerStrategy{
 
     @Override
     public Server getServer(int ip) {
-        List<Server> servers = LoadBalancer.getInstance().getServers();
-        if (servers.isEmpty()) {
-            throw new IllegalStateException("No servers available");
+        List<Server> healthyServers = LoadBalancer.getInstance().getServers()
+                .stream()
+                .filter(Server::isServerHealth)
+                .toList();
+
+        if (healthyServers.isEmpty()) {
+            throw new IllegalStateException("No healthy servers available");
         }
         int hash = Objects.hash(ip);
-        int index = Math.abs(hash) % servers.size();
-        return servers.get(index);
+        int index = Math.abs(hash) % healthyServers.size();
+
+        return healthyServers.get(index);
     }
+
 }
